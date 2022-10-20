@@ -2,7 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Models\Categoria;
+use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\ProductoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,11 +20,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('test/{nombre?}', function($nombre='Desconocido'){
+Route::get('categorias', [
+    CategoriaController::class, 'index'
+])->name('categorias.index');
 
-    return "Hola, {$nombre}";
+Route::get('categorias/{categoria}', [
+    CategoriaController::class, 'show'
+])->name('categorias.show');
 
-});
+Route::resource('productos', ProductoController::class);
 
 Auth::routes();
 
