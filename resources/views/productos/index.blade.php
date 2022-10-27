@@ -7,42 +7,52 @@
                 <div class="card">
                     <div class="card-header">{{ __('Productos') }}</div>
 
-                    <div class="m-3">
-                        <a class="text text-primary" href="{{ route('productos.create') }}"> Agregar producto </a>
-                    </div>
+                    <div class="card-body">
 
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col"> Nombre </th>
-                                <th scope="col"> Precio </th>
-                                <th scope="col"> Categoría </th>
-                                <th scope="col"> Acciones </th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                        @if (Session('status'))
+                            <div class="alert alert-success">
+                                {{ Session('status') }}
+                            </div>
+                        @endif
 
-                            @if ($productos->count() > 0)
-                                @foreach ($productos as $prod)
-                                    <tr>
-                                        <td> {{ $prod->nombre }} </td>
-                                        <td> {{ $prod->precio }} </td>
-                                        <td> {{ $prod->categoria_id }} </td>
-                                        <td>
-                                            <a class="text text-primary" href=""> Editar </a>
-                                            |
-                                            <a class="text text-danger" href=""> Eliminar </a>
-                                        </td>
-                                    </tr>
-                                @endforeach                           
-                            @else
+                        <div class="mb-3">
+                            <a class="btn btn-primary" href="{{ route('productos.create') }}"> Agregar producto </a>
+                        </div>
+
+                        <table class="table">
+                            <thead>
                                 <tr>
-                                    <td class="text-center" colspan="4"> No existen productos cargados. </td>
+                                    <th scope="col"> Nombre </th>
+                                    <th scope="col"> Precio </th>
+                                    <th scope="col"> Categoría </th>
+                                    <th scope="col">  </th>
                                 </tr>
-                            @endif
+                            </thead>
+                            <tbody>
 
-                        </tbody>
-                    </table>
+                                @if ($productos->count() > 0)
+                                    @foreach ($productos as $prod)
+                                        <tr>
+                                            <td> {{ $prod->nombre }} </td>
+                                            <td> {{ $prod->precio_format() }} </td>
+                                            <td> {{ $prod->categoria->nombre }} </td>
+                                            <td>
+                                                <a class="btn btn-primary" href="{{ route('productos.show', $prod) }}"> Ingresar </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach                           
+                                @else
+                                    <tr>
+                                        <td class="text-center" colspan="4"> No existen productos cargados. </td>
+                                    </tr>
+                                @endif
+
+                            </tbody>
+                        </table>
+
+                        {{ $productos->links() }}
+
+                    </div>
 
                 </div>
             </div>
