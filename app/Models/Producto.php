@@ -17,6 +17,7 @@ class Producto extends Model
         'precio',
         'categoria_id',
         'is_visible',
+        'imagen',
     ];
 
     public function precio_format()

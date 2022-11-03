@@ -21,6 +21,7 @@ class ProductoFactory extends Factory
             'descripcion' => fake()->text(),
             'precio' => fake()->numberBetween($min=10000, $max=1000000),
             'categoria_id' => fake()->numberBetween($min=1, $max=2),
+            'imagen' => fake()->url(),
         ];
     }
 }

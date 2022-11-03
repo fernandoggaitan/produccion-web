@@ -7,6 +7,7 @@
             <div class="card">
                 <div class="card-header">{{ $producto->nombre }}</div>
                 <div class="card-body">
+                    <img class="imagen-producto" src="{{ asset('/storage/' . $producto->imagen) }}" alt="">
                     {{ $producto->descripcion }}
                     <hr>
                     <a class="btn btn-primary" href="{{ route('productos.index') }}"> Volver a productos </a>

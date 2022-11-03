@@ -9,7 +9,7 @@
 
                     <div class="card-body">
 
-                        <form class="m-3" method="POST" action="{{ route('productos.store') }}">
+                        <form class="m-3" method="POST" action="{{ route('productos.store') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
                                 <label for="nombre" class="form-label"> Nombre </label>
@@ -41,6 +41,13 @@
                                 <label for="descripcion" class="form-label"> Descripción </label>
                                 <textarea class="form-control" name="descripcion" id="descripcion" cols="30" rows="10" placeholder="Ingrese la descripción del producto">{{ old('descripcion') }}</textarea>
                                 @error('descripcion')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="imagen" class="form-label"> Imagen </label>
+                                <input type="file" class="form-control" id="imagen" name="imagen">
+                                @error('imagen')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>

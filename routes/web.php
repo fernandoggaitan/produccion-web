@@ -28,7 +28,9 @@ Route::get('categorias/{categoria}', [
     CategoriaController::class, 'show'
 ])->name('categorias.show');
 
-Route::resource('productos', ProductoController::class);
+Route::group( [ 'middleware' => ['is_admin'] ], function(){
+    Route::resource('productos', ProductoController::class);
+} );
 
 Auth::routes();
 

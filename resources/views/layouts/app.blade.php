@@ -33,9 +33,11 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="{{ route('categorias.index') }}">Categorías</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{ route('productos.index') }}">Productos</a>
-                        </li>
+                        @if( Auth::user() and Auth::user()->is_admin )
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="{{ route('productos.index') }}">Productos</a>
+                            </li>
+                        @endif
                     </ul>
 
                     <!-- Right Side Of Navbar -->
