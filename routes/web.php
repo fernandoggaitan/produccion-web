@@ -20,18 +20,36 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('categorias', [
-    CategoriaController::class, 'index'
-])->name('categorias.index');
+Route::group(['middleware' => ['languaje']], function () {
 
-Route::get('categorias/{categoria}', [
-    CategoriaController::class, 'show'
-])->name('categorias.show');
+    Auth::routes();
 
-Route::group( [ 'middleware' => ['is_admin'] ], function(){
-    Route::resource('productos', ProductoController::class);
-} );
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
+    Route::get('categorias', [
+        CategoriaController::class, 'index'
+    ])->name('categorias.index');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('categorias/{categoria}', [
+        CategoriaController::class, 'show'
+    ])->name('categorias.show');
+
+    Route::group( [ 'middleware' => ['is_admin'] ], function(){
+        Route::resource('productos', ProductoController::class);
+    } );
+
+});
+
+//Para cambiar el idioma.
+Route::get('lang/{locale}', function ($locale) {
+
+    if (!in_array($locale, ['en', 'es'])) {
+        abort(400);
+    }
+
+    App::setLocale($locale);
+
+    session()->put('locale', $locale);
+    return redirect()->back();
+
+})->name('lang');

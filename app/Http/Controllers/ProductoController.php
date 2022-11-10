@@ -19,7 +19,7 @@ class ProductoController extends Controller
     {
         $productos = Producto::where('is_visible', true)
             ->orderByDesc('id')
-            ->paginate(10);
+            ->paginate(25);
         return view('productos.index', [
             'productos' => $productos
         ]);
